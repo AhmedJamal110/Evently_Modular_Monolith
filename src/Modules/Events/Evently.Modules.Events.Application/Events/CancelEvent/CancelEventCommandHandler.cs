@@ -22,6 +22,8 @@ internal sealed class CancelEventCommandHandler(
             return Result.Failure(EventErrors.NotFound(request.EventId));
         }
 
+      
+
         Result result = @event.Cancel(_dateTimeProvider.UTCNow);
 
         if(result.IsFailure)

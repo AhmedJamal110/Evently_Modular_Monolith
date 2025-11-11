@@ -4,7 +4,8 @@ using Evently.Modules.Events.Domain.Categories;
 using Evently.Modules.Events.Application.Abstractions.Data;
 
 namespace Evently.Modules.Events.Infrastructure.Database;
-public sealed class EventsDbContext : DbContext , IUnitOfWork
+public sealed class EventsDbContext(DbContextOptions<EventsDbContext> options) 
+    : DbContext(options) , IUnitOfWork
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

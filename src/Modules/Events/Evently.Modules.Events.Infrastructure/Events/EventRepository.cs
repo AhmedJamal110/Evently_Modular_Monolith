@@ -11,29 +11,20 @@ internal sealed class EventRepository(
         _context.Add(@event);
     }
 
-    public async Task<EventDto?> GetAsync(
+    public async Task<Event?> GetAsync(
         Guid id, 
         CancellationToken cancellationToken = default)
     {
-        EventDto? eventDto = await _context.Events
+        Event? @event = await _context.Events
            .Where(x => x.Id == id)
-           .Select(x => new EventDto(
-               x.Id,
-               x.CategoryId,
-               x.Title,
-               x.Description,
-               x.Location,
-               x.StartsAtUtc,
-               x.EndsAtUtc,
-               x.Status.ToString()))
            .FirstOrDefaultAsync(cancellationToken);
 
-        if(eventDto is null)
+        if(@event is null)
         {
             return null;
         }
 
-        return eventDto;
+        return @event;
 
     }
 }

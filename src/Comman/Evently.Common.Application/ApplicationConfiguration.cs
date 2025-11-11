@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Evently.Common.Application.Behaviors;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +15,7 @@ public static class ApplicationConfiguration
         {
             config.RegisterServicesFromAssemblies(assemblies);
 
+            config.AddOpenBehavior(typeof(RequestLoggingPiplineBehavior<,>));
            
         });
 
