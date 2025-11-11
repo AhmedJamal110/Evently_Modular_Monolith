@@ -23,7 +23,8 @@ builder.Services.AddOpenApi();
 
 
 builder.Services.AddApplication([Evently.Modules.Events.Application.AssemblyReference.Assembly]);
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(
+    builder.Configuration.GetConnectionString("RedisCaching")!);
 
 builder.Configuration.AddModuleConfigration(["events"]);
 
