@@ -1,4 +1,5 @@
 using Evently.Api.Extensions;
+using Evently.Api.Middlewares;
 using Evently.Common.Application;
 using Evently.Common.Infrastructure;
 using Evently.Modules.Events.Infrastructure;
@@ -12,6 +13,9 @@ builder.Host.UseSerilog(( context, configuration) =>
     configuration
         .ReadFrom.Configuration(context.Configuration);
 });
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 
 builder.Services.AddControllers();
@@ -43,5 +47,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseSerilogRequestLogging();
+app.UseExceptionHandler();
 
 await app.RunAsync();

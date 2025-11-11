@@ -11,25 +11,21 @@ internal sealed class CategoryRepository(
         _context.Add(category);
     }
 
-    public async Task<CategoryDto?> GetAsync(
+    public async Task<Category?> GetAsync(
         Guid id, 
         CancellationToken cancellationToken = default)
     {
-        CategoryDto? categoryDto = await _context.Categories
+        Category? category = await _context.Categories
            .Where(x => x.Id == id)
-           .Select(x => new CategoryDto(
-                x.Id,
-                x.Name,
-                x.IsArchived))
            .FirstOrDefaultAsync(cancellationToken);
     
-        if (categoryDto is null)
+        if (category is null)
         {
             return null;
         }
 
 
-        return categoryDto;
+        return category;
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Evently.Modules.Events.Domain.Categories;
 public interface ICategoryRepository
 {
-    Task<CategoryDto?> GetAsync(
+    Task<Category?> GetAsync(
         Guid id, 
         CancellationToken cancellationToken = default);
 

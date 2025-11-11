@@ -15,6 +15,7 @@ public static class ApplicationConfiguration
         {
             config.RegisterServicesFromAssemblies(assemblies);
 
+            config.AddOpenBehavior(typeof(ExceptionHandlingPiplineBehavior<,>));
             config.AddOpenBehavior(typeof(RequestLoggingPiplineBehavior<,>));
            
         });
