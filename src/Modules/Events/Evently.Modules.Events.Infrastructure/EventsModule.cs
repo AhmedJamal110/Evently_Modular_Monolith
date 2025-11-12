@@ -1,4 +1,5 @@
-﻿using Evently.Modules.Events.Application.Abstractions.Data;
+﻿using Evently.Common.Infrastructure.Interceptors;
+using Evently.Modules.Events.Application.Abstractions.Data;
 using Evently.Modules.Events.Domain.Categories;
 using Evently.Modules.Events.Domain.Events;
 using Evently.Modules.Events.Infrastructure.Categories;
@@ -25,12 +26,13 @@ public static class EventsModule
         IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddDbContext<EventsDbContext>(options =>
+        services.AddDbContext<EventsDbContext>(( sp , options) =>
         {
             options
                 .UseSqlServer(configuration.GetConnectionString("Database"),
                     options => options
-                     .MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Events));
+                     .MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Events))
+                .AddInterceptors(sp.GetRequiredService<PublishDomainEventsInterceptor>());
         });
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<EventsDbContext>());

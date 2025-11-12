@@ -2,6 +2,7 @@
 using Evently.Common.Application.Clock;
 using Evently.Common.Infrastructure.Caching;
 using Evently.Common.Infrastructure.Clock;
+using Evently.Common.Infrastructure.Interceptors;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using StackExchange.Redis;
@@ -14,6 +15,8 @@ public static class InfrastructureConfiguration
         string redisConnectionString)
     {
 
+        services.TryAddSingleton<PublishDomainEventsInterceptor>();
+
         services.AddScoped<IDateTimeProvider , DateTimeProvider>();
 
         IConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect(redisConnectionString);
@@ -23,6 +26,7 @@ public static class InfrastructureConfiguration
         {
             options.ConnectionMultiplexerFactory = () => Task.FromResult(connectionMultiplexer);
         });
+
 
 
         services.TryAddSingleton<ICacheService , CacheService>();
