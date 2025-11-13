@@ -15,7 +15,7 @@ internal sealed class CancelEventCommandHandler(
         CancellationToken cancellationToken)
     {
 
-        Event? @event = await _eventRepository.GetAsync(request.EventId, cancellationToken);
+        Event? @event = await _eventRepository.GetByIdAsync(request.EventId, cancellationToken);
         
         if(@event is null)
         {

@@ -1,5 +1,4 @@
-﻿using Evently.Common.Application.EventBus;
-using Evently.Common.Application.Exceptions;
+﻿using Evently.Common.Application.Exceptions;
 using Evently.Common.Application.Messaging;
 using Evently.Common.Domain;
 using Evently.Modules.Events.Application.Events.GetEvent;

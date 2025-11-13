@@ -1,4 +1,5 @@
 ﻿using Evently.Modules.Events.Infrastructure.Database;
+using Evently.Modules.Users.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace Evently.Api.Extensions;
@@ -13,9 +14,17 @@ public static class DatabaseExtension
              .ServiceProvider
              .GetRequiredService<EventsDbContext>();
 
+
+        await using UsersDbContext usersDbContext = serviceScope
+             .ServiceProvider
+             .GetRequiredService<UsersDbContext>();
+
+
         try
         {
             await eventsDbContext.Database.MigrateAsync();
+            await usersDbContext.Database.MigrateAsync();
+
             app.Logger
                 .LogInformation("Database migrations applied successfully.");
 

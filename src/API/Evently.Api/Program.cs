@@ -3,6 +3,8 @@ using Evently.Api.Middlewares;
 using Evently.Common.Application;
 using Evently.Common.Infrastructure;
 using Evently.Modules.Events.Infrastructure;
+using Evently.Modules.Ticketing.Infrastructure;
+using Evently.Modules.Users.Infrastructure;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
@@ -27,11 +29,16 @@ builder.Services.AddOpenApi();
 string? DatabaseConnectionString = builder.Configuration.GetConnectionString("Database");
 string? redisConnectionString = builder.Configuration.GetConnectionString("RedisCaching");
 
-builder.Services.AddApplication([Evently.Modules.Events.Application.AssemblyReference.Assembly]);
+builder.Services.AddApplication([
+    Evently.Modules.Events.Application.AssemblyReference.Assembly,
+    Evently.Modules.Users.Application.AssemblyReference.Assembly,
+    Evently.Modules.Ticketing.Application.AssemblyReference.Assembly
+]);
+
 builder.Services.AddInfrastructure(
     builder.Configuration.GetConnectionString("RedisCaching")!);
 
-builder.Configuration.AddModuleConfigration(["events"]);
+builder.Configuration.AddModuleConfigration(["events" , "users", "tickting"]);
 
 builder.Services.AddHealthChecks()
     .AddSqlServer(DatabaseConnectionString!)
@@ -39,6 +46,8 @@ builder.Services.AddHealthChecks()
 
 
 builder.Services.AddEventsModule(builder.Configuration);
+builder.Services.AddUsersModule(builder.Configuration);
+builder.Services.AddTicketingModule(builder.Configuration);
 
 
 
