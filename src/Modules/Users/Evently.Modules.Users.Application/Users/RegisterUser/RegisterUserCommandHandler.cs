@@ -1,5 +1,6 @@
 ﻿using Evently.Common.Application.Messaging;
 using Evently.Common.Domain;
+using Evently.Modules.Ticketing.PublicApi;
 using Evently.Modules.Users.Application.Abstractions.Data;
 using Evently.Modules.Users.Domain.Users;
 
@@ -7,6 +8,7 @@ namespace Evently.Modules.Users.Application.Users.RegisterUser;
 
 internal sealed class RegisterUserCommandHandler(
     IUserRepository userRepository,
+    //ITicketingApi _ticketingApi,
     IUnitOfWork unitOfWork)
     : ICommandHandler<RegisterUserCommand, Guid>
 {
@@ -23,6 +25,14 @@ internal sealed class RegisterUserCommandHandler(
         userRepository.Add(user);
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        //await _ticketingApi.CreateCustomerAsync(
+        //    user.Id,
+        //    user.Email,
+        //    user.FirstName,
+        //    user.LastName,
+        //    cancellationToken);
+
 
         return user.Id;
     }

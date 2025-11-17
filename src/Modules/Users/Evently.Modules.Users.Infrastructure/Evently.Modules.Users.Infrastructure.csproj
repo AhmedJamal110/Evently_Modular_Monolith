@@ -2,5 +2,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Comman\Evently.Common.Infrastructure\Evently.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\Evently.Modules.Users.Application\Evently.Modules.Users.Application.csproj" />
+    <ProjectReference Include="..\Evently.Modules.Users.PublicAPI\Evently.Modules.Users.PublicAPI.csproj" />
   </ItemGroup>
 </Project>

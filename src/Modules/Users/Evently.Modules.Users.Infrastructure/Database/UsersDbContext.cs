@@ -15,6 +15,8 @@ public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options)
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schemas.Users);
+        modelBuilder.ApplyDeciamalConfiguration();
+        modelBuilder.ApplyRestrictRelationConfigration();
 
         base.OnModelCreating(modelBuilder);
     }

@@ -18,6 +18,9 @@ public sealed class TicketingDbContext(DbContextOptions<TicketingDbContext> opti
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schemas.Ticketing);
+        modelBuilder.ApplyDeciamalConfiguration();
+        modelBuilder.ApplyRestrictRelationConfigration();
+
         base.OnModelCreating(modelBuilder);
     }
 
