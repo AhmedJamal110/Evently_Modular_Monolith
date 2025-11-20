@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Comman\Evently.Common.Presentation\Evently.Common.Presentation.csproj" />
+    <ProjectReference Include="..\..\Users\Evently.Modules.Users.IntegrationEvents\Evently.Modules.Users.IntegrationEvents.csproj" />
     <ProjectReference Include="..\Evently.Modules.Ticketing.Application\Evently.Modules.Ticketing.Application.csproj" />
+	  <PackageReference Include="MassTransit" />
+
   </ItemGroup>
 
 </Project>

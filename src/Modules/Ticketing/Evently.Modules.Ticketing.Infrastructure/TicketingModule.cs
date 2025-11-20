@@ -9,10 +9,14 @@ using Evently.Modules.Ticketing.Domain.Tickets;
 using Evently.Modules.Ticketing.Infrastructure.Customers;
 using Evently.Modules.Ticketing.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using MassTransit;
+using Evently.Modules.Users.IntegrationEvents;
+using Evently.Modules.Ticketing.Presentation.Customers;
 
 namespace Evently.Modules.Ticketing.Infrastructure;
 
@@ -50,5 +54,9 @@ public static class TicketingModule
 
     }
 
+    public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator)
+    {
+        registrationConfigurator.AddConsumer<UserRegisteredIntegrationEventConsumer>();
+    }
 
 }

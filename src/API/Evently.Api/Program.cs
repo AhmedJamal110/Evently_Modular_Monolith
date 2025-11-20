@@ -36,6 +36,7 @@ builder.Services.AddApplication([
 ]);
 
 builder.Services.AddInfrastructure(
+    [TicketingModule.ConfigureConsumers] ,
     builder.Configuration.GetConnectionString("RedisCaching")!);
 
 builder.Configuration.AddModuleConfigration(["events" , "users", "tickting"]);

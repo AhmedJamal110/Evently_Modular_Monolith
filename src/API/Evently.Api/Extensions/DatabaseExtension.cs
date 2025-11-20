@@ -22,8 +22,8 @@ public static class DatabaseExtension
 
         try
         {
-            await eventsDbContext.Database.MigrateAsync();
-            await usersDbContext.Database.MigrateAsync();
+            //await eventsDbContext.Database.MigrateAsync();
+            //await usersDbContext.Database.MigrateAsync();
 
             app.Logger
                 .LogInformation("Database migrations applied successfully.");
