@@ -1,6 +1,7 @@
 ﻿using Evently.Common.Application.Caching;
 using Evently.Common.Application.Clock;
 using Evently.Common.Application.EventBus;
+using Evently.Common.Infrastructure.Authentication;
 using Evently.Common.Infrastructure.Caching;
 using Evently.Common.Infrastructure.Clock;
 using Evently.Common.Infrastructure.EventBus;
@@ -18,6 +19,8 @@ public static class InfrastructureConfiguration
         Action<IRegistrationConfigurator>[] moduleConfigureConsumers,
         string redisConnectionString)
     {
+
+        services.AddAuthenticationInternal();
 
         services.TryAddSingleton<PublishDomainEventsInterceptor>();
 

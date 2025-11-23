@@ -28,6 +28,7 @@ builder.Services.AddOpenApi();
 
 string? DatabaseConnectionString = builder.Configuration.GetConnectionString("Database");
 string? redisConnectionString = builder.Configuration.GetConnectionString("RedisCaching");
+string? keyCloakHeahthy = builder.Configuration.GetValue<string>("KeyCloak:HealthUrl");
 
 builder.Services.AddApplication([
     Evently.Modules.Events.Application.AssemblyReference.Assembly,
@@ -43,7 +44,8 @@ builder.Configuration.AddModuleConfigration(["events" , "users", "tickting"]);
 
 builder.Services.AddHealthChecks()
     .AddSqlServer(DatabaseConnectionString!)
-    .AddRedis(redisConnectionString!);
+    .AddRedis(redisConnectionString!)
+    .AddUrlGroup(new Uri(keyCloakHeahthy!), HttpMethod.Get , "keycloack" );
 
 
 builder.Services.AddEventsModule(builder.Configuration);
@@ -73,5 +75,8 @@ app.MapHealthChecks("/health", new HealthCheckOptions()
 });
 app.UseSerilogRequestLogging();
 app.UseExceptionHandler();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 await app.RunAsync();
